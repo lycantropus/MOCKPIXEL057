@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\GeoLog;
 use App\Vehicle;
+use Carbon\Carbon;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 
@@ -204,8 +205,47 @@ class VehicleController extends Controller
                 ]);
             }
         }
+        return $vehicle->geoLogs()->orderBy('created_at')->get();
+    }
 
-        return $vehicle->geoLogs->last();
+    public function getStatusEvents(){
 
+        $client = new Client();
+
+        $response = $client->request(
+            'GET',
+            env('ENDPOINT_URL') . 'vega/events/?cursor=0&vin=' . env('VIN'). '&type=statusChange&limit=1000',
+            ['cert' => ['../Certificates/pixelcamp.pem', '../Certificates/pixelcamp.pem']]);
+
+        $json = json_decode($response->getBody());
+
+
+
+        $lastEngineOff= '';
+
+        foreach($json->events as $event){
+
+            if(array_key_exists('engineOn',$event->event )){
+
+                if($event->event->engineOn == false){
+
+                    $lastEngineOff = $event->created;
+                }
+            }
+        }
+        $vehicle = Vehicle::whereVin(env('VIN'))->first();
+        $vehicle->engine_off_at = Carbon::parse($lastEngineOff);
+        $vehicle->save();
+
+        return $response->getBody();
+    }
+
+    public function stolen(){
+
+        route('lock-doors');
+        route('immobilize');
+        route('livetrack');
+
+        return response('theft tracking engaged', 200);
     }
 }

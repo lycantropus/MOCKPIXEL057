@@ -18,6 +18,7 @@ class CreateVehiclesTable extends Migration
             $table->string('vin');
             $table->string('active_geofence')->nullable()->default(null);
             $table->unsignedInteger('vehicle_type_id')->nullable()->default(1);
+            $table->timestamp('engine_off_at')->nullable();
             $table->timestamps();
 
             $table->foreign('vehicle_type_id')->references('id')->on('vehicle_types');

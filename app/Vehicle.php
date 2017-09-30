@@ -26,7 +26,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Vehicle extends Model
 {
-    protected $fillable= ['vin', 'active_geofence', 'vehicle_type_id'];
+    protected $fillable= ['vin', 'active_geofence', 'vehicle_type_id', 'engine_off_at'];
 
     public function type(){
         return $this->belongsTo(VehicleType::class);

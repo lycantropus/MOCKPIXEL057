@@ -31,7 +31,7 @@ Route::get('vehicle-status/fields/{fields}', 'VehicleController@status');
 Route::group(['prefix' => 'vehicle'], function(){
 
     Route::group(['prefix' => 'doors'], function(){
-        Route::put('lock', 'VehicleController@lockDoors');
+        Route::put('lock', 'VehicleController@lockDoors')->name('lock-doors');
         Route::put('unlock', 'VehicleController@unlockDoors');
 
     });
@@ -41,18 +41,21 @@ Route::group(['prefix' => 'vehicle'], function(){
     });
 
     Route::group(['prefix' => 'immobilizer'], function(){
-       Route::put('engage', 'VehicleController@engageImmobilizer');
+       Route::put('engage', 'VehicleController@engageImmobilizer')->name('immobilize');
        Route::put('disengage', 'VehicleController@disengageImmobilizer');
     });
 
     Route::group(['prefix' => 'livetracking'], function(){
-        Route::put('activate', 'VehicleController@activateLivetracker');
+        Route::put('activate', 'VehicleController@activateLivetracker')->name('livetrack');
         Route::put('deactivate', 'VehicleController@deactivateLivetracker');
 
     });
 
     Route::get('last-location', 'VehicleController@lastLocation');
 
+    Route::get('status-events', 'VehicleController@getStatusEvents');
+
+    Route::get('stolen', 'VehicleController@stolen');
 
     Route::group(['prefix' => 'geofence'], function(){
 
