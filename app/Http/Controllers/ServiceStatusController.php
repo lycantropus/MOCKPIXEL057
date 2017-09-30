@@ -13,7 +13,10 @@ class ServiceStatusController extends Controller
 
         $client = new Client();
 
-        $response = $client->request('GET', env('ENDPOINT_URL') . 'vega/service/check', ['cert' => ['../Certificates/pixelcamp.pem', '../Certificates/pixelcamp.pem']]);
+        $response = $client->request(
+            'GET',
+            env('ENDPOINT_URL') . 'vega/service/check',
+            ['cert' => ['../Certificates/pixelcamp.pem', '../Certificates/pixelcamp.pem']]);
 
         return $response->getBody();
 

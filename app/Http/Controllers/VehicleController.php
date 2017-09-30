@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Vehicle;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 
@@ -20,6 +21,22 @@ class VehicleController extends Controller
             env('ENDPOINT_URL') . $this->resource . env('VIN'). '?fields=' . $fields ,
             ['cert' => ['../Certificates/pixelcamp.pem', '../Certificates/pixelcamp.pem']]);
 
+        $json = json_decode($response->getBody());
+
+        if($json->vin){
+
+            $vehicle = Vehicle::whereVin($json->vin)->first();
+
+            if(!$vehicle){
+
+                Vehicle::create([
+                    'vin' => $json->vin,
+                    'active_geofence' => null,
+                    'vehicle_type_id' => null
+                    ]);
+            }
+        }
+
         return $response->getBody();
     }
 
@@ -36,7 +53,7 @@ class VehicleController extends Controller
             return response('Doors locked!', 200);
         }
 
-        return response('error' . $response->getBody(), $response->getStatusCode());
+        return response('error ' . $response->getBody(), $response->getStatusCode());
     }
 
     public function unlockDoors(){
@@ -52,7 +69,7 @@ class VehicleController extends Controller
             return response('Doors unlocked!', 200);
         }
 
-        return response('error' . $response->getBody(), $response->getStatusCode());
+        return response('error ' . $response->getBody(), $response->getStatusCode());
     }
 
     public function blinkLights(){
@@ -67,7 +84,7 @@ class VehicleController extends Controller
             return response('Blink!', 200);
         }
 
-        return response('error' . $response->getBody(), $response->getStatusCode());
+        return response('error ' . $response->getBody(), $response->getStatusCode());
     }
 
     public function engageImmobilizer(){
@@ -82,7 +99,7 @@ class VehicleController extends Controller
             return response('Immobilizer engaged!', 200);
         }
 
-        return response('error' . $response->getBody(), $response->getStatusCode());
+        return response('error ' . $response->getBody(), $response->getStatusCode());
     }
 
     public function disengageImmobilizer(){
@@ -97,7 +114,7 @@ class VehicleController extends Controller
             return response('Immobilizer disengaged!', 200);
         }
 
-        return response('error' . $response->getBody(), $response->getStatusCode());
+        return response('error ' . $response->getBody(), $response->getStatusCode());
     }
 
     public function activateLivetracker(){
@@ -112,7 +129,7 @@ class VehicleController extends Controller
             return response('Livetracking activated!', 200);
         }
 
-        return response('error' . $response->getBody(), $response->getStatusCode());
+        return response('error ' . $response->getBody(), $response->getStatusCode());
     }
 
     public function deactivateLivetracker(){
@@ -127,6 +144,6 @@ class VehicleController extends Controller
             return response('Livetracking deactivated!', 200);
         }
 
-        return response('error' . $response->getBody(), $response->getStatusCode());
+        return response('error ' . $response->getBody(), $response->getStatusCode());
     }
 }

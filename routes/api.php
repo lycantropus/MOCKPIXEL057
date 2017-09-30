@@ -51,6 +51,16 @@ Route::group(['prefix' => 'vehicle'], function(){
 
     });
 
+
+    Route::group(['prefix' => 'geofence'], function(){
+
+        Route::get('', 'GeofenceController@show');
+        Route::post('', 'GeofenceController@store');
+        Route::put('', 'GeofenceController@update');
+        Route::delete('', 'GeofenceController@destroy');
+
+    });
+
 });
 
 
