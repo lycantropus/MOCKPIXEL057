@@ -51,6 +51,8 @@ Route::group(['prefix' => 'vehicle'], function(){
 
     });
 
+    Route::get('last-location', 'VehicleController@lastLocation');
+
 
     Route::group(['prefix' => 'geofence'], function(){
 

@@ -16,8 +16,8 @@ class CreateGeoLogsTable extends Migration
         Schema::create('geo_logs', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('vehicle_id');
-            $table->float('latitude', 8, 2);
-            $table->float('longitude', 8, 2);
+            $table->float('latitude', 8, 6);
+            $table->float('longitude', 8, 6);
             $table->string('location_address')->nullable();
             $table->timestamps();
 

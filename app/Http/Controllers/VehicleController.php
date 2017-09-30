@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\GeoLog;
 use App\Vehicle;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
@@ -29,11 +30,31 @@ class VehicleController extends Controller
 
             if(!$vehicle){
 
-                Vehicle::create([
+                $vehicle = Vehicle::create([
                     'vin' => $json->vin,
-                    'active_geofence' => null,
-                    'vehicle_type_id' => null
                     ]);
+            }
+
+            if($json->geo){
+
+                $latitude = $json->geo->latitude;
+                $longitude = $json->geo->longitude;
+
+                $googleResponse = $client->request(
+                    'GET',
+                    'http://maps.googleapis.com/maps/api/geocode/json?latlng='.$latitude.','.$longitude
+                );
+
+                $locationJson = json_decode($googleResponse->getBody());
+
+                $formattedAddress = $locationJson->results[0]->formatted_address;
+
+                GeoLog::create([
+                    'vehicle_id' => $vehicle->id,
+                    'latitude' => $latitude,
+                    'longitude' => $longitude,
+                    'location_address' => $formattedAddress? $formattedAddress: 'No address for this geolocation'
+                ]);
             }
         }
 
@@ -145,5 +166,46 @@ class VehicleController extends Controller
         }
 
         return response('error ' . $response->getBody(), $response->getStatusCode());
+    }
+
+    public function lastLocation(){
+
+        $client = new Client();
+
+        $response = $client->request(
+            'GET',
+            env('ENDPOINT_URL') . $this->resource . env('VIN'). '?fields=' . 'geo.latitude,geo.longitude' ,
+            ['cert' => ['../Certificates/pixelcamp.pem', '../Certificates/pixelcamp.pem']]);
+
+        $json = json_decode($response->getBody());
+
+        $vehicle = Vehicle::whereVin(env('VIN'))->first();
+
+        if($vehicle){
+            if($json->geo){
+
+                $latitude = $json->geo->latitude;
+                $longitude = $json->geo->longitude;
+
+                $googleResponse = $client->request(
+                    'GET',
+                    'http://maps.googleapis.com/maps/api/geocode/json?latlng='.$latitude.','.$longitude
+                );
+
+                $locationJson = json_decode($googleResponse->getBody());
+
+                $formattedAddress = $locationJson->results[0]->formatted_address;
+
+                GeoLog::create([
+                    'vehicle_id' => $vehicle->id,
+                    'latitude' => $latitude,
+                    'longitude' => $longitude,
+                    'location_address' => $formattedAddress? $formattedAddress: 'No address for this geolocation'
+                ]);
+            }
+        }
+
+        return $vehicle->geoLogs->last();
+
     }
 }

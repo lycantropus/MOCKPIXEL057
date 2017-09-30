@@ -22,6 +22,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Vehicle whereVin($value)
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\GeoLog[] $GeoLogs
  * @property-read \App\VehicleType $type
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\GeoLog[] $geoLogs
  */
 class Vehicle extends Model
 {
@@ -31,7 +32,7 @@ class Vehicle extends Model
         return $this->belongsTo(VehicleType::class);
     }
 
-    public function GeoLogs(){
+    public function geoLogs(){
         return $this->hasMany(GeoLog::class);
     }
 }
