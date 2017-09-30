@@ -6,7 +6,6 @@ use App\GeoLog;
 use App\Vehicle;
 use Carbon\Carbon;
 use GuzzleHttp\Client;
-use Illuminate\Http\Request;
 
 class VehicleController extends Controller
 {
@@ -110,7 +109,6 @@ class VehicleController extends Controller
     }
 
     public function engageImmobilizer(){
-
         $client = new Client();
 
         $response = $client->request(
@@ -171,31 +169,25 @@ class VehicleController extends Controller
 
     public function lastLocation(){
 
-        $client = new Client();
+        /*$client = new Client();
 
         $response = $client->request(
             'GET',
             env('ENDPOINT_URL') . $this->resource . env('VIN'). '?fields=' . 'geo.latitude,geo.longitude' ,
             ['cert' => ['../Certificates/pixelcamp.pem', '../Certificates/pixelcamp.pem']]);
 
-        $json = json_decode($response->getBody());
+        $json = json_decode($response->getBody());*/
 
         $vehicle = Vehicle::whereVin(env('VIN'))->first();
 
-        if($vehicle){
+        /*if($vehicle){
             if($json->geo){
 
                 $latitude = $json->geo->latitude;
                 $longitude = $json->geo->longitude;
 
-                $googleResponse = $client->request(
-                    'GET',
-                    'http://maps.googleapis.com/maps/api/geocode/json?latlng='.$latitude.','.$longitude
-                );
 
-                $locationJson = json_decode($googleResponse->getBody());
-
-                $formattedAddress = $locationJson->results[0]->formatted_address;
+                $formattedAddress = $this->getGoogleAddress($latitude, $longitude);
 
                 GeoLog::create([
                     'vehicle_id' => $vehicle->id,
@@ -204,8 +196,8 @@ class VehicleController extends Controller
                     'location_address' => $formattedAddress? $formattedAddress: 'No address for this geolocation'
                 ]);
             }
-        }
-        return $vehicle->geoLogs()->orderBy('created_at')->get();
+        }*/
+        return $vehicle->geoLogs->last();
     }
 
     public function getStatusEvents(){
@@ -219,7 +211,7 @@ class VehicleController extends Controller
 
         $json = json_decode($response->getBody());
 
-
+        $vehicle= Vehicle::whereVin(env('VIN'))->first();
 
         $lastEngineOff= '';
 
@@ -232,8 +224,35 @@ class VehicleController extends Controller
                     $lastEngineOff = $event->created;
                 }
             }
+            if(array_key_exists('geo', $event->event)){
+
+
+
+                $lastLog = GeoLog::whereVehicleId($vehicle->id)->get()->last();
+
+                $latitude = $lastLog->latitude;
+                $longitude = $lastLog->longitude;
+
+                if(array_key_exists('latitude', $event->event->geo)){
+                    $latitude =$event->event->geo->latitude;
+                }
+
+                if(array_key_exists('longitude', $event->event->geo)){
+                    $longitude= $event->event->geo->longitude;
+                }
+
+                $locationAddress = $this->getGoogleAddress($latitude, $longitude);
+
+                GeoLog::create([
+                    'vehicle_id' => $vehicle->id,
+                    'latitude' => $latitude,
+                    'longitude' => $longitude,
+                    'location_address' => $locationAddress
+
+                ]);
+            }
         }
-        $vehicle = Vehicle::whereVin(env('VIN'))->first();
+
         $vehicle->engine_off_at = Carbon::parse($lastEngineOff);
         $vehicle->save();
 
@@ -242,10 +261,28 @@ class VehicleController extends Controller
 
     public function stolen(){
 
-        route('lock-doors');
-        route('immobilize');
-        route('livetrack');
+
+        $this->lockDoors();
+        $this->engageImmobilizer();
+        $this->activateLivetracker();
 
         return response('theft tracking engaged', 200);
+    }
+
+    public function getGoogleAddress($latitude, $longitude){
+
+        $client = new Client();
+
+        $googleResponse = $client->request(
+            'GET',
+            'http://maps.googleapis.com/maps/api/geocode/json?latlng='.$latitude.','.$longitude
+        );
+
+        $locationJson = json_decode($googleResponse->getBody());
+
+        
+        $formattedAddress = $locationJson->results[0]->formatted_address;
+
+        return $formattedAddress;
     }
 }
