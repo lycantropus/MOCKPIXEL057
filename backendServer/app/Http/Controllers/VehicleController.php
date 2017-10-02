@@ -280,7 +280,7 @@ class VehicleController extends Controller
 
         $locationJson = json_decode($googleResponse->getBody());
 
-        
+
         $formattedAddress = $locationJson->results[0]->formatted_address;
 
         return $formattedAddress;
