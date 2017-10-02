@@ -29,7 +29,7 @@ depending on your laravel version you may need to run `php artisan key:generate`
 
 run `php artisan migrate --seed` to generate the DB tables and populate them with the seeds
 
-bring your VM up if you are using Homestead or call `php artisan serve if not`
+bring your VM up if you are using Homestead or call `php artisan serve` if not
 
 
 # Screenshots
