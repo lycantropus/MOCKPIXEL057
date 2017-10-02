@@ -1,0 +1,291 @@
+{
+	"variables": [],
+	"info": {
+		"name": "SmartMercedes",
+		"_postman_id": "8af12d55-954f-f89f-cb43-f6940a89633e",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Car Control",
+			"description": "",
+			"item": [
+				{
+					"name": "LockDoor",
+					"request": {
+						"url": "http://mercedes.dev/api/vehicle/doors/lock",
+						"method": "PUT",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "UnlockDoor",
+					"request": {
+						"url": "http://mercedes.dev/api/vehicle/doors/unlock",
+						"method": "PUT",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Blink",
+					"request": {
+						"url": "http://mercedes.dev/api/vehicle/lights/blink",
+						"method": "PUT",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Engage Immobilizer",
+					"request": {
+						"url": "http://mercedes.dev/api/vehicle/immobilizer/engage",
+						"method": "PUT",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Disengage Immobilizer",
+					"request": {
+						"url": "http://mercedes.dev/api/vehicle/immobilizer/disengage",
+						"method": "PUT",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "get vehicle status",
+					"request": {
+						"url": "mercedes.dev/api/vehicle-status/fields/batteryLevel,connection.connected,connection.since,doors.allClosed,doors.leftOpen,doors.locked,doors.rightOpen,doors.trunkOpen,engineOn,fuelLevel,geo.latitude,geo.longitude,ignitionOn,immobilizerEngaged,mileage,powerState,vin",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Tracking",
+			"description": "",
+			"item": [
+				{
+					"name": "Activate Livetracker",
+					"request": {
+						"url": "http://mercedes.dev/api/vehicle/livetracking/activate",
+						"method": "PUT",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Deactivate Livetracker",
+					"request": {
+						"url": "http://mercedes.dev/api/vehicle/livetracking/deactivate",
+						"method": "PUT",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get Last Location",
+					"request": {
+						"url": "http://mercedes.dev/api/vehicle/last-location/",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"polygons\": [\n    {\n      \"points\": [\n        {\n          \"latitude\": 47.42143,\n          \"longitude\": 9.94167\n        },\n        {\n          \"latitude\": 47.42143,\n          \"longitude\": 10.94166\n        },\n        {\n          \"latitude\": 48.42144,\n          \"longitude\": 10.94168\n        }\n      ]\n    }\n  ]\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get Status Events",
+					"request": {
+						"url": "http://mercedes.dev/api/vehicle/status-events/",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"polygons\": [\n    {\n      \"points\": [\n        {\n          \"latitude\": 47.42143,\n          \"longitude\": 9.94167\n        },\n        {\n          \"latitude\": 47.42143,\n          \"longitude\": 10.94166\n        },\n        {\n          \"latitude\": 48.42144,\n          \"longitude\": 10.94168\n        }\n      ]\n    }\n  ]\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Theft Tracking",
+			"description": "",
+			"item": [
+				{
+					"name": "Activate Theft Tracking",
+					"request": {
+						"url": "http://mercedes.dev/api/vehicle/stolen/",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"polygons\": [\n    {\n      \"points\": [\n        {\n          \"latitude\": 47.42143,\n          \"longitude\": 9.94167\n        },\n        {\n          \"latitude\": 47.42143,\n          \"longitude\": 10.94166\n        },\n        {\n          \"latitude\": 48.42144,\n          \"longitude\": 10.94168\n        }\n      ]\n    }\n  ]\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Geofence",
+			"description": "",
+			"item": [
+				{
+					"name": "GetGeofence",
+					"request": {
+						"url": "http://mercedes.dev/api/vehicle/geofence/",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"polygons\": [\n    {\n      \"points\": [\n        {\n          \"latitude\": 47.42143,\n          \"longitude\": 9.94167\n        },\n        {\n          \"latitude\": 47.42143,\n          \"longitude\": 10.94166\n        },\n        {\n          \"latitude\": 48.42144,\n          \"longitude\": 10.94168\n        }\n      ]\n    }\n  ]\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Geofence",
+					"request": {
+						"url": "http://mercedes.dev/api/vehicle/geofence/",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"polygons\": [\n    {\n      \"points\": [\n        {\n          \"latitude\": 47.42143,\n          \"longitude\": 9.94167\n        },\n        {\n          \"latitude\": 47.42143,\n          \"longitude\": 10.94166\n        },\n        {\n          \"latitude\": 48.42144,\n          \"longitude\": 10.94168\n        }\n      ]\n    }\n  ]\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Create Geofence",
+					"request": {
+						"url": "http://mercedes.dev/api/vehicle/geofence/",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"polygons\": [\n    {\n      \"points\": [\n        {\n          \"latitude\": 47.42143,\n          \"longitude\": 9.94167\n        },\n        {\n          \"latitude\": 47.42143,\n          \"longitude\": 10.94166\n        },\n        {\n          \"latitude\": 48.42144,\n          \"longitude\": 10.94168\n        }\n      ]\n    }\n  ]\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Update Geofence",
+					"request": {
+						"url": "http://mercedes.dev/api/vehicle/geofence/",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"polygons\": [\n    {\n      \"points\": [\n        {\n          \"latitude\": 47.42143,\n          \"longitude\": 9.94167\n        },\n        {\n          \"latitude\": 47.42143,\n          \"longitude\": 10.94166\n        },\n        {\n          \"latitude\": 48.42144,\n          \"longitude\": 10.94168\n        }\n      ]\n    }\n  ]\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Mercedes Service Status",
+			"request": {
+				"url": "http://mercedes.dev/api/service-status",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Api Status",
+			"request": {
+				"url": "http://mercedes.dev/api/status",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
