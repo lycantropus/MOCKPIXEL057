@@ -23,7 +23,7 @@ Add a `.env` file with the normal Laravel setup (you need to setup the database 
 
 Add the following enviroment variables to the .env file:
 
-`ENDPOINT_URL=https://api.prod.smartservices.car2go.com/`
+`ENDPOINT_URL=https://api.prod.smartservices.car2go.com/` and
 `VIN=MOCKPIXEL057`
 
 Depending on your laravel version you may need to run `php artisan key:generate` to create an APP_KEY.
