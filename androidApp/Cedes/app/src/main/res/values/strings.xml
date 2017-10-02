@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Cedes</string>
+
+    <string-array name="vehicle_type">
+        <item>ENTERPRISE</item>
+        <item>PERSONAL</item>
+    </string-array>
+
+</resources>
