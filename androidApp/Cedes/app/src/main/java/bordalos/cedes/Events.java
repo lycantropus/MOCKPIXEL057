@@ -8,10 +8,10 @@ import java.util.concurrent.ExecutionException;
 
 public class Events extends HttpGetRequest {
 
+    private String myUrlBase = "http://430b1340.ngrok.io";
     //Some url endpoint that you may have
     public String getVehicleInfo() {
 
-        String myUrlBase = "http://4da05065.ngrok.io";
         String myUrlParams= "/api/vehicle-status/fields/batteryLevel,connection.connected,connection.since,doors.allClosed,doors.leftOpen,doors.locked,doors.rightOpen,doors.trunkOpen,engineOn,fuelLevel,geo.latitude,geo.longitude,ignitionOn,immobilizerEngaged,mileage,powerState,vin";
         String myUrl = myUrlBase+myUrlParams;
         //String to place our result in
@@ -32,7 +32,6 @@ public class Events extends HttpGetRequest {
 
     public String lastVehiclePosition()
     {
-        String myUrlBase = "http://4da05065.ngrok.io";
         String myUrlParams= "/api/vehicle/last-location";
         String myUrl = myUrlBase+myUrlParams;
         //String to place our result in
@@ -53,7 +52,6 @@ public class Events extends HttpGetRequest {
 
     public String vehicleStolen()
     {
-        String myUrlBase = "http://4da05065.ngrok.io";
         String myUrlParams= "/api/vehicle/stolen";
         String myUrl = myUrlBase+myUrlParams;
         //String to place our result in
