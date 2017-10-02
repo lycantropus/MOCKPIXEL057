@@ -15,9 +15,22 @@ Don't forget to tell us the problems that your project tries to solve and what y
 
 ## How to build and run the project.
 
-To build the app please follow this steps...
+To build the app please follow this steps:
 
-And to run it simply call `./mercedes-benz`
+run `php composer install` in the backendServer directory.
+
+add a `.env` file with the normal Laravel setup (you need to setup the database configuration)
+
+add the following enviroment variables to the .env file:
+`ENDPOINT_URL=https://api.prod.smartservices.car2go.com/`
+`VIN=MOCKPIXEL057`
+
+depending on your laravel version you may need to run `php artisan key:generate` to create an APP_KEY
+
+run `php artisan migrate --seed` to generate the DB tables and populate them with the seeds
+
+bring your VM up if you are using Homestead or call `php artisan serve if not`
+
 
 # Screenshots
 
