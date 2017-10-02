@@ -22,6 +22,7 @@ Run `php composer install` in the backendServer directory.
 Add a `.env` file with the normal Laravel setup (you need to setup the database configuration).
 
 Add the following enviroment variables to the .env file:
+
 `ENDPOINT_URL=https://api.prod.smartservices.car2go.com/`
 `VIN=MOCKPIXEL057`
 
