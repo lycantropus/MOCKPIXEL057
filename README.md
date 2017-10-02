@@ -2,7 +2,7 @@
 
 ## Project name
 
-Place here the name of your project
+MOCKPIXEL057 - Cedes
 
 ## Team members
 
