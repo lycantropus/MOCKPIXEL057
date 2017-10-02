@@ -17,6 +17,8 @@ It is also implemented a tracking mode that the user can trigger (when the vehic
 
 The API was built over the provided API by mercedes and extended by ours when needed. All the functions provided by the original api were also implemented with a simplified syntax since the project is focused on a single vehicle.
 
+Additionally, the user can interact with the API through a mobile app.
+
 ## How to build and run the project.
 
 To build the app please follow this steps:
@@ -38,18 +40,41 @@ Bring your VM up if you are using Homestead or call `php artisan serve` otherwis
 (Check postman files for API routes info and syntax.)
 
 
+Regarding de Mobile aplication, it requires a smartphone compatible with OS  Android 5.1. (Lollipop) and use the apk provides in this repository.
+
+
 # Screenshots
 
-![Alt text](https://www.smartusa.com/resources/img/offers/offer-cabriolet.jpg)
-
-Directly embed screenshots or simply place them in a folder (eg: "project-screenshots") along with your code.
+Can be found in project-screenshots folder
 
 ## Improvements and other ideas
 
-List all features that you whould have implemented if you had more time and don't forget to tell us the features that you think that are missing on our API.
+Landing Menu:
+- There are 5 widgets ( 4 button switch and a dropdown) that aren't implementd. The purpose of these widgets are for user's use and remote control.
+
+Theft Traking Menu:
+-The button refresh doesn't add addicional rows to the list of locations
+
+Configuration Menu (nonexistent):
+- The user could configure some automatic features, such as, how the vehicle should behaviour in case of robery;
+
+Server side automatic notification:
+
+-If batteryLevel (X)
+  5 < X ->SLEEP
+  5 =< X < 8 -> BATTERY_LOW
+  8 >= X -> ON
+
+-if powerState = SLEEP
+  Notify vehicle's onwer that the vehicle need to recharge
+  Notificar o proprietário do veículo para dar carga à batería do veículo
+
+- if mileage > 60 000 && vehicleType = ENTERPRISE
+   Norify Mercedes markting center to contact vehicle's owner to make a vehicle change contract.
+   
 
 We are always looking out for more ideas to enhance our API.
 
 ## Feedback
 
-If you can please provide feedback about the event or the Mercedes-Benz team on site. Tell us what your likes ands dislikes.
+
