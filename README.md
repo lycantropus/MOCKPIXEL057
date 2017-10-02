@@ -6,12 +6,16 @@ Place here the name of your project
 
 ## Team members
 
-  - Gottlieb Daimler
-  - Karl Benz
+  - André Bordalo
+  - João Bordalo
 
 ## Project Description
 
-Don't forget to tell us the problems that your project tries to solve and what you do about it.
+This project aims to bring a simplified interface for the user/owner of the vehicle allowing him check some values regarding the cars's hardware and position.
+
+It is also implemented a tracking mode that the user can trigger (when the vehicle is stolen) that locks the car, forces the tracking mode, engages the immobilizer, and starts keeping a log of the vehicle location coordinates as well as the street name associated to that coordinates (using googlemaps API).
+
+The API was built over the provided API by mercedes and extended by ours when needed. All the functions provided by the original api were also implemented with a simplified syntax since the project is focused on a single vehicle.
 
 ## How to build and run the project.
 
